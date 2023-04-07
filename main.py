@@ -8,9 +8,9 @@ CS = storage.Client()
 def gcp_export_http():
 
     sql = """
-    EXPORT DATA OPTIONS(uri="gs://bkt-dmgcp-del-ce-temp/Sagar/test/EMP_table*.csv",format='CSV', header=true, overwrite=true,
+    EXPORT DATA OPTIONS(uri="gs://{{bucket}}/{{folder}}/file_name_*.csv",format='CSV', header=true, overwrite=true,
 	field_delimiter=',') AS SELECT * FROM 
-    dmgcp-del-ce.Test.EMP1
+    table_name
     """
 
     query_job = BQ.query(sql)  
@@ -47,4 +47,4 @@ def CSVtoXML(inputfile,outputfile):
 
 if __name__=="__main__":
     gcp_export_http()
-    CSVtoXML('gs://bkt-dmgcp-del-ce-temp/Sagar/test/EMP_table000000000000.csv','EMP_table.xml')
+    CSVtoXML('gs://{{bucket}}/{{folder}}/file_name_*.csv','EMP_table.xml')
